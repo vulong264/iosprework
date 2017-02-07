@@ -50,12 +50,12 @@ class ViewController: UIViewController {
         super.viewWillAppear(animated)
         let settings = UserDefaults.standard
         //for custom UI display
-        selectedValue = settings.integer(forKey: "tipme_selected_location")
+        selectedValue = settings.integer(forKey: "tipme_selected_location") ?? 0
         
         //getting values for recommended tip amount by country
-        badValue = settings.integer(forKey: "tipme_bad_value")
-        normalValue = settings.integer(forKey: "tipme_normal_value")
-        goodValue = settings.integer(forKey: "tipme_good_value")
+        badValue = settings.integer(forKey: "tipme_bad_value") ?? 0
+        normalValue = settings.integer(forKey: "tipme_normal_value") ?? 0
+        goodValue = settings.integer(forKey: "tipme_good_value") ?? 0
         tipSelect.setTitle(String(badValue)+"%", forSegmentAt: 0)
         tipSelect.setTitle(String(normalValue)+"%", forSegmentAt: 1)
         tipSelect.setTitle(String(goodValue)+"%", forSegmentAt: 2)
@@ -64,21 +64,25 @@ class ViewController: UIViewController {
         tipPercent[2] = goodValue
         
         //checking last bill amount last saved time
-        let savedTimeValue = settings.string(forKey: "bill_saved_date")
-        let formatter = DateFormatter()
-        formatter.timeStyle = .medium
-        formatter.dateStyle = .medium
-        let savedDate = formatter.date(from: savedTimeValue!)
-        let currentDateTime = Date()
-        let diffMinute = currentDateTime.timeIntervalSince(savedDate!)/60
-//        print("bill amount saved "+String(diffMinute)+" ago")
-        if (diffMinute <= 10){
-            billTextField.text = settings.string(forKey: "bill_amount")
-            print("bill amount saved "+String(diffMinute)+" ago. Displaying to text field")
-        }
-        else
+        let billAmount = settings.string(forKey: "bill_amount") ?? ""
+        if (billAmount.characters.count > 0)
         {
-            print("bill amount saved "+String(diffMinute)+" ago. Ignore saved data")
+            let savedTimeValue = settings.string(forKey: "bill_saved_date")
+            let formatter = DateFormatter()
+            formatter.timeStyle = .medium
+            formatter.dateStyle = .medium
+            let savedDate = formatter.date(from: savedTimeValue!)
+            let currentDateTime = Date()
+            let diffMinute = currentDateTime.timeIntervalSince(savedDate!)/60
+//        print("bill amount saved "+String(diffMinute)+" ago")
+            if (diffMinute <= 10){
+                billTextField.text = billAmount
+                print("bill amount saved "+String(diffMinute)+" ago. Displaying to text field")
+            }
+            else
+            {
+                print("bill amount saved "+String(diffMinute)+" ago. Ignore saved data")
+            }
         }
         billTextField.becomeFirstResponder()
 //        print("Using default value "+String(selectedValue))

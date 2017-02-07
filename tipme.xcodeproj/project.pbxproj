@@ -196,6 +196,7 @@
 				TargetAttributes = {
 					D9E2414F1E4896F6004F7CE0 = {
 						CreatedOnToolsVersion = 8.2;
+						DevelopmentTeam = D7RX787JDX;
 						ProvisioningStyle = Automatic;
 					};
 					D9E241631E4896F6004F7CE0 = {
@@ -414,6 +415,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = D7RX787JDX;
 				INFOPLIST_FILE = tipme/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.vulong.tipme;
@@ -426,6 +428,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = D7RX787JDX;
 				INFOPLIST_FILE = tipme/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.vulong.tipme;
@@ -507,6 +510,7 @@
 				D9E2417A1E4896F6004F7CE0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D9E2417B1E4896F6004F7CE0 /* Build configuration list for PBXNativeTarget "tipmeTests" */ = {
 			isa = XCConfigurationList;
@@ -515,6 +519,7 @@
 				D9E2417D1E4896F6004F7CE0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D9E2417E1E4896F6004F7CE0 /* Build configuration list for PBXNativeTarget "tipmeUITests" */ = {
 			isa = XCConfigurationList;
@@ -523,6 +528,7 @@
 				D9E241801E4896F6004F7CE0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
