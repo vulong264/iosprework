@@ -121,9 +121,22 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
     var locationValueArray = [Array<Any>]()
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+
         let settings = UserDefaults.standard
         //getting saved location
         selectedValue = settings.integer(forKey: "tipme_selected_location")
+        if selectedValue == 0
+        {
+            badValueField.isEnabled = true
+            normalValueField.isEnabled = true
+            goodValueField.isEnabled = true
+        }
+        else
+        {
+            badValueField.isEnabled = false
+            normalValueField.isEnabled = false
+            goodValueField.isEnabled = false
+        }
 //        print("previously selected "+String(selectedValue))
         //getting saved custom values
         let savedBadValue = settings.integer(forKey: "tipme_custom_bad_value")
