@@ -15,7 +15,7 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
     @IBOutlet weak var badValueField: UITextField!
     @IBOutlet weak var normalValueField: UITextField!
     @IBOutlet weak var goodValueField: UITextField!
-    let defaultValues = [0,10,20]
+    var defaultValues = [0,10,20]
     let usaValue = [15,20,25]
     let ukValue = [20,25,30]
     let vnValue = [0,0,50]
@@ -28,6 +28,22 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
         locationView.dataSource = self
         // Do any additional setup after loading the view.
     }
+    
+    @IBAction func setCustomAmounts(_ sender: AnyObject) {
+        let badValue = Int(badValueField.text!) ?? 0
+        let normalValue = Int(normalValueField.text!) ?? 0
+        let goodValue = Int(goodValueField.text!) ?? 0
+        print("Custom value changed. Bad: "+String(badValue)+" Normal: "+String(normalValue)+" Good: "+String(goodValue))
+        defaultValues[0] = badValue
+        defaultValues[1] = normalValue
+        defaultValues[2] = goodValue
+        let settings = UserDefaults.standard
+        settings.set(badValue, forKey: "tipme_custom_bad_value")
+        settings.set(normalValue, forKey: "tipme_custom_normal_value")
+        settings.set(goodValue, forKey: "tipme_custom_good_value")
+        settings.synchronize()
+    }
+
     
     @IBAction func onClickBack(_ sender: Any) {
         navigationController?.popViewController(animated: true)
@@ -71,7 +87,19 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
             cell.accessoryType = .checkmark
         }
         let row = indexPath.row
-        print(locationArray[row])
+//        print(locationArray[row])
+        if row == 0
+        {
+            badValueField.isEnabled = true
+            normalValueField.isEnabled = true
+            goodValueField.isEnabled = true
+        }
+        else
+        {
+            badValueField.isEnabled = false
+            normalValueField.isEnabled = false
+            goodValueField.isEnabled = false
+        }
         fillValuesToTextBoxes(valueArray: locationValueArray[row])
         saveSettings(selectedValue: indexPath.row)
     }
@@ -81,29 +109,42 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
             cell.accessoryType = .none
         }
         let row = indexPath.row
-        print("uncheck "+locationArray[row])
+//        print("uncheck "+locationArray[row])
     }
     
     func saveSettings(selectedValue: Int){
         let settings = UserDefaults.standard
         settings.set(selectedValue, forKey: "tipme_selected_location")
-        settings.set(badValueField.text, forKey: "tipme_bad_value")
-        settings.set(normalValueField.text, forKey: "tipme_normal_value")
-        settings.set(goodValueField.text, forKey: "tipme_good_value")
-        settings.synchronize()
+        saveSelectedTipAmounts()
     }
     var selectedValue = 0
     var locationValueArray = [Array<Any>]()
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         let settings = UserDefaults.standard
+        //getting saved location
         selectedValue = settings.integer(forKey: "tipme_selected_location")
-        print("previously selected "+String(selectedValue))
+//        print("previously selected "+String(selectedValue))
+        //getting saved custom values
+        let savedBadValue = settings.integer(forKey: "tipme_custom_bad_value")
+        let savedNormalValue = settings.integer(forKey: "tipme_custom_normal_value")
+        let savedGoodValue = settings.integer(forKey: "tipme_custom_good_value")
+        defaultValues[0] = savedBadValue
+        defaultValues[1] = savedNormalValue
+        defaultValues[2] = savedGoodValue
+        
         locationValueArray = [defaultValues,usaValue,ukValue,vnValue]
-        badLabel.text = ":-("
-        normalLabel.text = ":-|"
-        goodLabel.text = ":-)"
-
+    }
+    func saveSelectedTipAmounts()
+    {
+        let settings = UserDefaults.standard
+        settings.set(badValueField.text, forKey: "tipme_bad_value")
+        settings.set(normalValueField.text, forKey: "tipme_normal_value")
+        settings.set(goodValueField.text, forKey: "tipme_good_value")
+        settings.synchronize()
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        saveSelectedTipAmounts()
     }
     /*
     // MARK: - Navigation
