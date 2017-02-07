@@ -25,14 +25,15 @@ The following **additional** features are implemented:
 - [ ] List anything else that you can get done to improve the app functionality!
 - [x] Added a list of country with recommended tip amounts accordingly
 - [x] Added a custom option so that User can define their desired tip amounts
-- [ ] Add a glider to change number of person in group and display the split amount for each member of the group
+- [x] Add a glider to change number of person in group and display the split amount for each member of the group
+- [x] Using emoji to rate service satisfaction, tip percentage are get from settings' value accordingly
 - [ ] Make it fun by displaying different background photo with different country
 
 ## Video Walkthrough 
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/TIZCKzw.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='http://i.imgur.com/aFN3kQw.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
